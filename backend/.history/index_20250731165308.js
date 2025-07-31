@@ -1,1 +1,0 @@
-const connectToMongo = require('./db');

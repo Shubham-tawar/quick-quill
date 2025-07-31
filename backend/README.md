@@ -1,0 +1,4 @@
+- user.js to get user details
+- notes.js ot write notes
+- we will set routes for differnet endpoints in our external route folder for clean code
+- app.use will redirect my endpoint to the routes
