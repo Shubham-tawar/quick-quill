@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const User = require("../models/User"); // to use the User model for database operations
 const { body, validationResult } = require("express-validator");
 const { use } = require("react");
 const bcrypt = require("bcryptjs");
