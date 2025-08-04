@@ -4,6 +4,10 @@ import noteContext from "../context/notes/NoteContext";
 
 
 const Login = () => {
+  const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  console.log("Loaded API URL:", process.env.REACT_APP_API_URL);
+
+
     const [credentials, setCredentials] = useState({"email": "", "password": ""});
    let navigate = useNavigate(); // useNavigate hook to programmatically navigate to different routes when the user logs in successfully
 
@@ -12,7 +16,7 @@ const Login = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/auth/login/", {
+        const response = await fetch(`${BASE_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,11 +4,19 @@ import NoteItem from "./NoteItem";
 import { useNavigate } from "react-router-dom";
 
 
-const Notes = () => {
+const Notes = ({ searchQuery }) => {
   const context = useContext(noteContext);
   const navigate = useNavigate(); // Import useNavigate from react-router-dom to redirect
   const { notes, getNotes, editNote, userName } = context;
   
+    
+
+  const filteredNotes = notes.filter((note) =>
+    note.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.tag?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
     useEffect(() => {
     if (localStorage.getItem("token")) {
         getNotes();
@@ -79,11 +87,15 @@ const Notes = () => {
         Hello <strong>{userName.name || "User"}</strong> Here are your notes
       <div className="container">
         <div className="d-flex flex-wrap justify-content-center">
-            {notes.length === 0 && "No notes to display"} 
-          {notes.map((note) => (
-            <NoteItem note={note} key={note._id} updateNote={updateNote}/>
-          ))}
+            {filteredNotes.length === 0 ? (
+            <p>No notes to display</p>
+            ) : (
+            filteredNotes.map((note) => (
+                <NoteItem key={note._id} note={note} updateNote={updateNote} />
+            ))
+            )}
         </div>
+        
       </div>
     </>
   );

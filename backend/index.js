@@ -4,7 +4,9 @@ const app = express()
 const cors = require('cors');
 const port = 5000
 
-app.use(cors());
+app.use(cors({
+  origin: '*',
+}));
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
@@ -12,10 +14,10 @@ app.get('/', (req, res) => {
 app.use(express.json());
 
 // Routes for endpoints
-app.use("/api/auth", require('./routes/Auth'));
+app.use("/api/auth", require('./routes/auth'));
 app.use("/api/notes", require('./routes/notes'));
 
-app.listen(port, () => {
+app.listen(port,'0.0.0.0', () => {
   console.log(`QuickQuill listening on port ${port}`)
 })
 connectToMongo();

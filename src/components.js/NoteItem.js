@@ -7,8 +7,8 @@ const NoteItem = (props) => {
   const { note,updateNote } = props;
   const formattedDate = new Date(note.date).toLocaleString();
   return (
-    <div key={note._id} className="card m-3" style={{ width: "18rem" }}>
-      <div className="card-body">
+    <div key={note._id} className="card m-3 noteItem" style={{ width: "18rem" }} >
+      <div className="card-body" >
         <h5 className="card-title">{note.title}</h5>
         <p className="card-text">{note.description}</p>
         <div className="d-flex justify-content-between align-items-center">
