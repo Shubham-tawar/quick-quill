@@ -3,7 +3,7 @@ import NoteContext from "./NoteContext";
 import { useState } from "react";
 
 const NoteState = (props) => {
-  const host = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const host = process.env.REACT_APP_API_URL || "https://quick-quill-backend.onrender.com";
   const notesInitial = []
   
   const [userName, setUserName] = useState(() => {
