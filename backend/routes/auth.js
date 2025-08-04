@@ -20,10 +20,12 @@ router.post(
       .withMessage("Password must be at least 5 characters long"),
   ],
   async (req, res) => {
+    let success = false; // this will be used to check if the user is created successfully or not and send to the front end for redirecting to notes page
+    // if any error occurs in the validation then return the error
     // request and response from and to the user and this is syntax of express-validator
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ success,errors: errors.array() });
     }
     try {
       //first check that users already exists or not
@@ -32,7 +34,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "User with this email already exists" });
+          .json({success, error: "User with this email already exists" });
       }
       // else create a new user
       const salt = await bcrypt.genSalt(10); // generate a salt for hashing the password
@@ -49,10 +51,11 @@ router.post(
         user: {
           id: user.id // this is the id of the user which is created
         }
-      };
+      }; 
 
       var authtoken = jwt.sign(data, JWT_SECRET); // this will create a token for the user using the user id and JWT_SECRET
-      res.json({authtoken}); // this will return the user authtoken object in json format to the user
+      success = true; // set success to true if the user is created successfully
+      res.json({success,authtoken}); // this will return the user authtoken object in json format to the user
     } catch (error) {
       console.error("Error creating user:", error);
       res.status(500).send("Internal Server Error");
@@ -70,6 +73,7 @@ router.post(
     body("password").exists().withMessage("Password cannot be empty"),
   ],
   async (req, res) => {
+    let success = false; // this will be used to check if the login is successful or not and send to the front end for redirecting to notes page
     // if any error occurs in the validation then return the error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,13 +84,13 @@ router.post(
     try { // find the user with the given email
         let user = await User.findOne({ email});
         if (!user) { // if user does not exist then return error
-            return res.status(400).json({ error: "Please try again with correct credentials" });
+            return res.status(400).json({ success, error: "Please try again with correct credentials" });
         }
         // if user exists then compare the password with the hashed password in the database
         // bcrypt.compare will return true if the password matches
         const passwordCompare = await bcrypt.compare(password, user.password); // compare the password with the hashed password in the database
         if (!passwordCompare) { // if password does not match then return error
-            return res.status(400).json({ error: "Please try again with correct credentials" });
+            return res.status(400).json({success, error: "Please try again with correct credentials" });
         }
         // if password matches then create a token for the user
         // this token will be used to authenticate the user in the future requests
@@ -97,7 +101,8 @@ router.post(
         };
 
         var authtoken = jwt.sign(data, JWT_SECRET); // this will create a token for the user using the user id and JWT_SECRET
-        res.json({authtoken}); // this will return the user authtoken object in json format to the user
+        success = true; // set success to true if the login is successful
+        res.json({success, authtoken, name:user.name}); // this will return the user authtoken object in json format to the user
 
     }catch (error) {
       console.error("Error during user login:", error);
@@ -121,4 +126,5 @@ router.post(
         
     }
   })
+
 module.exports = router;
