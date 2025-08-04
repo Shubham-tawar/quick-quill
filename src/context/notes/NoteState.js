@@ -4,6 +4,7 @@ import { useState } from "react";
 
 const NoteState = (props) => {
   const host = process.env.REACT_APP_API_URL || "https://quick-quill-backend.onrender.com";
+  console.log("host:", host); 
   const notesInitial = []
   
   const [userName, setUserName] = useState(() => {

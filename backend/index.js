@@ -7,9 +7,7 @@ const port = 5000
 app.use(cors({
   origin: '*',
 }));
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
 //middleware to parse JSON
 app.use(express.json());
 

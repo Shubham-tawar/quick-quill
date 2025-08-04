@@ -2,7 +2,7 @@ import React,{useState} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = ({ setSearchQuery,toggleMode, mode }) => {
-    console.log("mode:", mode);
+    
   // Using useLocation to log the current path and furthur use it to make the nav link active when clicked
   let location = useLocation();
     let navigate = useNavigate(); // useNavigate hook to programmatically navigate to different routes when the user logs in successfully
@@ -16,7 +16,7 @@ const Navbar = ({ setSearchQuery,toggleMode, mode }) => {
 
   return (
     <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`}>
-      <div className="container-fluid">
+      <div className="container-fluid" >
         <Link className="navbar-brand" to="/"><img src="/logo.png" alt="Logo" style={{ width: "40px", height: "40px" }} />
           QuickQuill
         </Link>
@@ -31,7 +31,7 @@ const Navbar = ({ setSearchQuery,toggleMode, mode }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" >
+        <div className="collapse navbar-collapse" id="navbarSupportedContent" >
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link

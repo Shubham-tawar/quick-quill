@@ -5,7 +5,7 @@ import noteContext from "../context/notes/NoteContext";
 
 const Login = () => {
   const BASE_URL = process.env.REACT_APP_API_URL || "https://quick-quill-backend.onrender.com";
-  console.log("Loaded API URL:", process.env.REACT_APP_API_URL);
+     
 
 
     const [credentials, setCredentials] = useState({"email": "", "password": ""});
