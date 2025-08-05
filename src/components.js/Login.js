@@ -15,24 +15,24 @@ const Login = () => {
     const { setUserName } = context;
 
     const handleSubmit = async(e) => {
-        e.preventDefault();
-        const response = await fetch(`${BASE_URL}/api/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            }, body: JSON.stringify({email: credentials.email, password: credentials.password}),
-        });
-        const json = await response.json();
-        console.log(json);
-        if (json.success) {
-            // Save the auth token and redirect
-            localStorage.setItem('token', json.authtoken);
-            localStorage.setItem('name', json.name); // this will save the name of the user in local storage
-            setUserName({ name: json.name }); // set the user name in the context
-            navigate("/"); // Redirect to home page after successful login
-        }else {
-            alert("Invalid credentials");
-        }
+      e.preventDefault();
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          }, body: JSON.stringify({email: credentials.email, password: credentials.password}),
+      });
+      const json = await response.json();
+      
+      if (json.success) {
+          // Save the auth token and redirect
+          localStorage.setItem('token', json.authtoken);
+          localStorage.setItem('name', json.name); // this will save the name of the user in local storage
+          setUserName({ name: json.name }); // set the user name in the context
+          navigate("/"); // Redirect to home page after successful login
+      }else {
+          alert("Invalid credentials");
+      }
     };
 
     const onChange = (e) => {

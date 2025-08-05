@@ -5,7 +5,10 @@ const cors = require('cors');
 const port = 5000
 
 app.use(cors({
-  origin: '*',
+  origin: 'https://quickquill-1.netlify.app', // Allow requests from this origin
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"], //  Allow common HTTP methods
+  allowedHeaders: ["Content-Type", "auth-token"], // Allow these headers
+  credentials: true // Allow credentials to be sent with requests
 }));
 
 //middleware to parse JSON
