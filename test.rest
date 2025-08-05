@@ -1,0 +1,8 @@
+POST https://quick-quill-backend.onrender.com/api/auth/login
+Content-Type: application/json
+
+
+{
+    "email": "nandu@gmail.com",
+    "password": "nandu123"
+}
